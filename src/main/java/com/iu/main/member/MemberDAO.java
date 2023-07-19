@@ -2,10 +2,42 @@ package com.iu.main.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.iu.main.util.DBConnector;
 
 public class MemberDAO {
+	
+	public MemberDTO login(MemberDTO memberDTO)throws Exception{
+		//1
+		Connection con = DBConnector.getConnection();
+		
+		//2
+		String sql = "SELECT ID, NAME FROM MEMBER WHERE ID=? AND PW=?";
+	
+		//3
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		//4
+		st.setString(1, memberDTO.getId());
+		st.setString(2, memberDTO.getPw());
+	
+		//5
+		ResultSet rs = st.executeQuery();
+		
+		if(rs.next()) {
+			memberDTO = new MemberDTO();
+			memberDTO.setId(rs.getString("ID"));
+			memberDTO.setName(rs.getString("NAME"));
+		}else {
+			memberDTO=null;
+		}
+		
+		//6
+		DBConnector.disConnect(rs,st, con);
+		
+		return memberDTO;
+	}
 	
 	public int join(MemberDTO memberDTO) throws Exception {
 		int result=0;

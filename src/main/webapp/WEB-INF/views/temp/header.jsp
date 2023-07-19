@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
 <!-- header -->
 	<header>
@@ -36,8 +36,14 @@
 		      
 		      <nav>
 		      	<ul class="nav">
-		      		<li class="nav-item text-white me-3">로그인</li>
-		      		<li class="nav-item text-white me-3"><a href="/member/join.do">회원가입</a></li>
+		      		<c:if test="${empty member}">		           		
+		    	  	<li class="nav-item text-black me-3"><a href="/member/login.do">로그인</a></li>
+		      		<li class="nav-item text-black me-3"><a href="/member/join.do">회원가입</a></li>
+		      		</c:if>
+		      		<c:if test="${not empty member}">		           		
+		    	  	<li class="nav-item text-black me-3"><a href="/member/logout.do">로그아웃</a></li>
+		      		<li class="nav-item text-black me-3"><a href="/member/mypage.do">마이페이지</a></li>
+		      		</c:if>
 		      	</ul>
 		      </nav>
 		      

@@ -14,8 +14,14 @@
 </head>
 <body>
 	<c:import url="./temp/header.jsp"></c:import>
-
-
-
+	<c:if test="${not empty member}">
+	<h1>로그인상태</h1>
+	
+	</c:if>
+	
+<c:if test="${empty sessionScope.member}">
+	<h1>비로그인 상태</h1>
+</c:if>
+	
 </body>
 </html>
